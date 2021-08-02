@@ -2,8 +2,15 @@ import { useState, useEffect } from "react";
 import { RepositoryItem } from "./RepositoryItem";
 import "../styles/repositories.css";
 
+// Criando uma interface por causa do TS
+interface Repository {
+  name: string;
+  description: string;
+  html_url: string;
+}
+
 export function RepositoryList() {
-  const [repositories, setRepositores] = useState([]);
+  const [repositories, setRepositores] = useState<Repository[]>([]);
   // useEffect recebe dois parâmetros: qual função quero executar
   // e quando quero executá-la (dependências), ou seja,
   // quero que o useEffect mude quando o quê mudar?
@@ -23,8 +30,8 @@ export function RepositoryList() {
     <section className="repository-list">
       <h1>Lista de repositórios</h1>
       <ul>
-        {repositories.map((repository) => {
-          return <RepositoryItem />;
+        {repositories.map(repository => {
+          return <RepositoryItem key={repository.name} repository={repository}/>;
         })}
       </ul>
     </section>
